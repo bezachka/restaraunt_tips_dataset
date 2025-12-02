@@ -32,7 +32,7 @@ print("""
 и предсказания размера чаевых.
 """)
 
-def sorting(dat, type):
+def sorting(dat, type, sort):
 
     sort_data = data[data[type] == dat]
 
@@ -46,7 +46,11 @@ def sorting(dat, type):
         proc = round(tip[i])
         procent.append(proc)
 
-    return round(sum(procent))
+    if sort == 0:   return round(sum(procent))
+    elif sort == 1: return round(sum(procent)/len(procent))
+    else:
+        print("Веберите тип сортировки")
+        return None
 
 fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(10, 8))
 
@@ -54,20 +58,20 @@ x = [1, 2, 3, 4]
 y = []
 
 for i in x:
-    y.append(sorting(type = "size", dat=i))
+    y.append(sorting(type = "size", dat=i, sort=1))
 
 axes[0, 0].bar(x, y)
-axes[0, 0].set_title('Кол-во Гостей')
+axes[0, 0].set_title('Кол-во Гостей за Столиком(Среднее)')
 axes[0, 0].grid(True)
 
 x1 = ["Male", "Female"]
 y1 = []
 
 for i in x1:
-    y1.append(sorting(type = "sex", dat=i))
+    y1.append(sorting(type = "sex", dat=i, sort=1))
 
 axes[0, 1].bar(x1, y1)
-axes[0, 1].set_title('Пол')
+axes[0, 1].set_title('Пол Гостя(Среднее)')
 axes[0, 1].grid(True)
 
 
@@ -75,10 +79,10 @@ x2 = ["Thur", "Fri", "Sat", "Sun"]
 y2 = []
 
 for i in x2:
-    y2.append(sorting(type = "day", dat=i))
+    y2.append(sorting(type = "day", dat=i, sort = 0))
 
 axes[1, 0].bar(x2, y2)
-axes[1, 0].set_title('День недели')
+axes[1, 0].set_title('День недели(Всего)')
 axes[1, 0].grid(True)
 
 
@@ -86,10 +90,10 @@ x3 = ["Lunch", "Dinner"]
 y3 = []
 
 for i in x3:
-    y3.append(sorting(type = "time", dat=i))
+    y3.append(sorting(type = "time", dat=i, sort = 0))
 
 axes[1, 1].bar(x3, y3)
-axes[1, 1].set_title('Время')
+axes[1, 1].set_title('Обед или Ужин(Всего)')
 axes[1, 1].grid(True)
 
 
